@@ -20,6 +20,16 @@ export fn Add(context: jsc.JSContextRef, globalObject: jsc.JSObjectRef, thisObje
     return jsc.JSValueMakeNumber(context, add);
 }
 
+///*
+//* Registers APIs within the provided JavaScript context and global object.
+//*
+//* @param context       The JavaScript context where the APIs will be registered.
+//* @param globalObject  The global object to which the APIs will be added.
+//*
+//* @return              There is no explicit return value.
+//*/
+
 pub fn Apis(context: jsc.JSContextRef, globalObject: jsc.JSObjectRef) !void {
-    try fng.createCustomFunction(context, globalObject, "Add", Add);
+    // Attempts to create a custom function "Add" and add it to the provided context and global object
+    try fng.createCustomFunction(context, globalObject, "Add", Add); 
 }
