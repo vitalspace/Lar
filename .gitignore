@@ -9,6 +9,11 @@ lerna-debug.log*
 
 lar
 
+# ignore zig
+some/
+zig-cache/
+zig-out
+
 .vscode
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
