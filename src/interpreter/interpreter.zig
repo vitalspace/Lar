@@ -49,24 +49,26 @@ pub fn interpreter(allocator: std.mem.Allocator, filename: []const u8, context: 
     // Evaluating the JavaScript code
     const result = jsc.JSEvaluateScript(context, jsCode, null, null, 0, null);
 
-    // Converting the result to a string representation
-    const jsString = jsc.JSValueToStringCopy(context, result, null);
+    _ = result;
 
-    // Allocating memory for the string buffer
-    var buffer = try allocator.alloc(u8, jsc.JSStringGetMaximumUTF8CStringSize(jsString));
+    // // Converting the result to a string representation
+    // const jsString = jsc.JSValueToStringCopy(context, result, null);
 
-    // Freeing the buffer memory at the end of the scope
-    defer allocator.free(buffer);
+    // // Allocating memory for the string buffer
+    // var buffer = try allocator.alloc(u8, jsc.JSStringGetMaximumUTF8CStringSize(jsString));
 
-    // Getting the length of the string
-    const string_length = jsc.JSStringGetUTF8CString(jsString, buffer.ptr, buffer.len);
+    // // Freeing the buffer memory at the end of the scope
+    // defer allocator.free(buffer);
 
-    // Slicing the buffer to get the string
-    const string = buffer[0..string_length];
+    // // Getting the length of the string
+    // const string_length = jsc.JSStringGetUTF8CString(jsString, buffer.ptr, buffer.len);
 
-    // Printing the string
-    std.debug.print("{s}\n", .{string});
+    // // Slicing the buffer to get the string
+    // const string = buffer[0..string_length];
+
+    // // Printing the string
+    // std.debug.print("{s}\n", .{string});
 
     // Releasing the JavaScript string
-    jsc.JSStringRelease(jsString);
+    // jsc.JSStringRelease(jsString);
 }

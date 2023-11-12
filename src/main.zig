@@ -10,9 +10,9 @@ const inter = @import("./interpreter/interpreter.zig");
 pub fn main() !void {
     const context = jsc.JSGlobalContextCreate(null);
     const globalObject = jsc.JSContextGetGlobalObject(context);
-    try api.Apis(context, globalObject);
-
     const allocator = std.heap.page_allocator;
+
+    try api.Apis(context, globalObject);
 
     const args = try std.process.argsAlloc(allocator);
     defer std.process.argsFree(allocator, args);
