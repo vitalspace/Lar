@@ -70,6 +70,6 @@ pub fn interpreter(allocator: std.mem.Allocator, filename: []const u8, context: 
     // // Printing the string
     // std.debug.print("{s}\n", .{string});
 
-    // Releasing the JavaScript string
+    // // Releasing the JavaScript string
     // jsc.JSStringRelease(jsString);
 }
