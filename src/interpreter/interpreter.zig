@@ -1,5 +1,6 @@
 const std = @import("std");
 const jsc = @import("../jsc/jsc.zig");
+const rd = @import("../utils/readScript.zig");
 
 //*
 //* Reads the content of a file and returns it as a null-terminated UTF-8 encoded string.
@@ -9,22 +10,22 @@ const jsc = @import("../jsc/jsc.zig");
 //*
 //* @return           A null-terminated UTF-8 encoded string containing the file content.
 //*/
-fn readScript(allocator: std.mem.Allocator, filename: []const u8) ![]const u8 {
-    // Reading the file content
-    const content = try std.fs.cwd().readFileAllocOptions(allocator, filename, std.math.maxInt(usize), null, 1, 0);
+// fn readScript(allocator: std.mem.Allocator, filename: []const u8) ![]const u8 {
+//     // Reading the file content
+//     const content = try std.fs.cwd().readFileAllocOptions(allocator, filename, std.math.maxInt(usize), null, 1, 0);
 
-    // Allocating memory for the content + null terminator
-    const buffer = try allocator.alloc(u8, content.len + 1);
+//     // Allocating memory for the content + null terminator
+//     const buffer = try allocator.alloc(u8, content.len + 1);
 
-    // Copying the file content to the buffer
-    std.mem.copy(u8, buffer[0..content.len], content);
+//     // Copying the file content to the buffer
+//     std.mem.copy(u8, buffer[0..content.len], content);
 
-    // Appending null-terminator
-    buffer[content.len] = 0;
+//     // Appending null-terminator
+//     buffer[content.len] = 0;
 
-    // Returning the null-terminated UTF-8 encoded string
-    return buffer;
-}
+//     // Returning the null-terminated UTF-8 encoded string
+//     return buffer;
+// }
 
 ///*
 //* Interprets and executes a JavaScript file within a provided JavaScript context.
@@ -38,7 +39,7 @@ fn readScript(allocator: std.mem.Allocator, filename: []const u8) ![]const u8 {
 pub fn interpreter(allocator: std.mem.Allocator, filename: []const u8, context: jsc.JSContextRef) !void {
 
     // Reading the file content
-    const fileContents = try readScript(allocator, filename);
+    const fileContents = try rd.readScript(allocator, filename);
 
     // Freeing allocated memory for file content at the end of the scope
     defer allocator.free(fileContents);
